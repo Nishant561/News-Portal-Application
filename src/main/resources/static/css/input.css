@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@source "./src/main/resources/templates/**/*.html";
+
+@theme {
+
+    --color-brand: #3b82f6; --font-display: "Inter", "sans-serif";
+
+}
+
+@layer base {
+
+    h1 {
+
+        @apply text-2xl font-bold;
+    }
+
+}
