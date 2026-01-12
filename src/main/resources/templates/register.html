@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="bg-primary w-full h-screen flex items-center justify-center  ">
+    <form th:action="@{/saveuser}" method="post" class="w-1/2 h-fit border border-white rounded-2xl p-8 " th:object="${user}" >
+
+
+
+            <div class="border-b border-white/10 pb-12">
+                <h2 class="text-base/7 font-semibold text-white w-full text-center">Personal Information</h2>
+
+                <ul class="text-red-600 text-sm mb-2"
+                    th:if="${#fields.hasGlobalErrors()}">
+                    <li th:each="err : ${#fields.globalErrors()}"
+                        th:text="${err}">
+                    </li>
+                </ul>
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                        <label for="first-name" class="block text-sm/6 font-medium text-white">First name</label>
+                        <ul class="text-red-500" th:if="${#fields.hasErrors('firstName')}">
+                            <li th:each="err: ${#fields.errors('firstName')}" th:text="${err}"></li>
+                        </ul>
+                        <div class="mt-2">
+                            <input id="first-name" type="text" th:field="*{firstName}" autocomplete="given-name" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="last-name" class="block text-sm/6 font-medium text-white">Last name</label>
+                        <ul th:if="${#fields.hasErrors('lastName')}">
+                                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}">
+
+                                </li>
+                        </ul>
+                        <div class="mt-2">
+                            <input id="last-name" type="text" th:field="*{lastName}" autocomplete="family-name" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="email" class="block text-sm/6 font-medium text-white">Email address</label>
+                        <ul th:if="${#fields.hasErrors('email')}">
+                            <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                        </ul>
+                        <div class="mt-2">
+                            <input id="email" type="email" th:field="*{email}" autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="phonenumber" class="block text-sm/6 font-medium text-white">Phone-Number</label>
+                        <ul th:if="${#fields.hasErrors('phoneNumber')}">
+                                <li th:each="err : ${#fields.errors('phoneNumber')}" th:text="${err}"></li>
+                        </ul>
+                        <div class="mt-2">
+                            <input id="phonenumber" type="text" th:field="*{phoneNumber}"  class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="password" class="block text-sm/6 font-medium text-white">Password</label>
+                        <ul th:if="${#fields.hasErrors('password')}">
+                                <li th:each="err : ${#fields.errors('password')}" th:text="${err}">
+
+                                </li>
+
+                        </ul>
+                        <div class="mt-2">
+                            <input id="password" type="text" th:field="*{password}"  class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <label for="confirmpassword" class="block text-sm/6 font-medium text-white">Confirm-Password</label>
+
+                        <ul th:if="${#fields.hasErrors('confirmPassword')}">
+                            <li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}"></li>
+                        </ul>
+                        <div class="mt-2">
+                            <input id="confirmpassword" type="password" th:field="*{confirmPassword}"  class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                    <a th:href="@{/login}" type="button" class="text-sm/6 font-semibold text-white">Cancel</a>
+                    <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Save</button>
+                </div>
+            </div>
+
+
+
+</div>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+</html>

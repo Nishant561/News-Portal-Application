@@ -5,7 +5,21 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body class="bg-amber-400">
+<body >
+        <form th:action="@{/saveusr}" method="post" class=" mt-20 ml-20" th:object="${user}">
 
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}"
+                    th:text="${err}">
+                </li>
+            </ul>
+
+            <label for="email">Email </label>
+            <input type="text" id="email" th:field="*{email}" class="border-2 border-black-600 " >
+
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" class="border-2 border-black-600"/>
+            <button type="submit">Save</button>
+        </form>
 </body>
 </html>

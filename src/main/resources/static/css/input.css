@@ -5,7 +5,7 @@
 @theme {
 
     --color-brand: #3b82f6; --font-display: "Inter", "sans-serif";
-
+    --color-primary: #3B3B3B;
 }
 
 @layer base {
