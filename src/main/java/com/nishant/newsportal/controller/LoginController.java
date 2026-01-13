@@ -26,45 +26,10 @@ public class LoginController {
         return "login.html";
     }
 
-    @PostMapping("/saveusr")
-    public String submitUserDetails(@Valid @ModelAttribute("user") User user , Errors error){
-
-        if(error.hasErrors()){
-            return "index.html";
-        }
-
-     boolean isSaved =    userServices.createNewUser(user);
-
-        if(isSaved){
-            return "redirect:/login?register=true";
-        }
-        return "redirect:/login?register=false&errors=true";
 
 
 
 
-    }
-
-
-    @GetMapping("/register")
-    public String displayRegisterPage(@RequestParam(name = "error", required = false) String error,Model model){
-        model.addAttribute("user", new User());
-        return "register.html";
-    }
-
-    @PostMapping("/saveuser")
-    public String saveUser(@Valid @ModelAttribute("user") User user, Errors error){
-            if(error.hasErrors()){
-                return "register.html";
-            }
-            boolean isSaved = userServices.createNewUser(user);
-
-            if(isSaved){
-                return "redirect:/login?register=true";
-            }
-
-            return "redirect:/register?error=true";
-    }
 
 
 

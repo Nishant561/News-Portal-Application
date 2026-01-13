@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -18,16 +21,41 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain defaultSecurityFilterConfiguration(HttpSecurity http){
-        http.csrf(csrf -> csrf.disable())
+    public SecurityFilterChain defaultSecurityFilterConfiguration(HttpSecurity http) throws Exception{
+        http.csrf((csrf) -> csrf.ignoringRequestMatchers("/saveuser").ignoringRequestMatchers("/login"))
                 .authorizeHttpRequests(
                         auth ->
-                                auth.anyRequest().permitAll()
+                                auth
+                                        .requestMatchers("/register").permitAll()
+                                        .requestMatchers("/saveuser").permitAll()
+                                        .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/home").authenticated()
+                                        .anyRequest().permitAll()
+
+
                 )
-                .formLogin(login -> login.disable())
-                .httpBasic(Customizer.withDefaults());
+                .formLogin(loginConfig -> loginConfig.loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login?errors=true").permitAll())
+                .logout(logoutconfig -> logoutconfig.logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll());
+
+
+
 
 
         return http.build();
     }
+
+
+    @Bean
+    public InMemoryUserDetailsManager userDetailsManager(){
+        UserDetails user = User.builder().username("nishant").password(passwordEncoder().encode("nishant")).roles("USER").build();
+
+
+        return new InMemoryUserDetailsManager(user);
+
+
+    }
+
+
 }
+
+
