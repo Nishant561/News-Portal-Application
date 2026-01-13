@@ -64,7 +64,7 @@ public class User extends BaseEntity {
     private String confirmPassword;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_role",
             joinColumns = @JoinColumn(name = "user_id" , referencedColumnName ="user_id" ),

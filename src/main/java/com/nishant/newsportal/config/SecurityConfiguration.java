@@ -34,7 +34,7 @@ public class SecurityConfiguration {
 
 
                 )
-                .formLogin(loginConfig -> loginConfig.loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login?errors=true").permitAll())
+                .formLogin(loginConfig -> loginConfig.loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/home").failureUrl("/login?errors=true").permitAll())
                 .logout(logoutconfig -> logoutconfig.logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll());
 
 
