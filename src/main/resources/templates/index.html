@@ -6,6 +6,24 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body >
-       <h1>I am home page</h1>
+        <ul>
+            <li th:text=" 'welcome '+ ${email}" >
+
+            </li>
+            <li th:each="role :${role}" th:text="${role}">
+
+            </li>
+
+        </ul>
+
+<div>
+    <a th:href="@{/profile}">
+        User
+    </a>
+
+    <a th:href="@{/logout}">
+        logout
+    </a>
+</div>
 </body>
 </html>

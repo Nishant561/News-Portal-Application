@@ -29,13 +29,14 @@ public class SecurityConfiguration {
                                         .requestMatchers("/register").permitAll()
                                         .requestMatchers("/saveuser").permitAll()
                                         .requestMatchers("/login").permitAll()
-                                        .requestMatchers("/home").authenticated()
+                                        .requestMatchers("/home").hasRole("USER")
+                                        .requestMatchers("/profile").hasRole("USER")
                                         .anyRequest().permitAll()
 
 
                 )
                 .formLogin(loginConfig -> loginConfig.loginPage("/login").usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/home").failureUrl("/login?errors=true").permitAll())
-                .logout(logoutconfig -> logoutconfig.logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll());
+                .logout(logoutconfig -> logoutconfig.logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll());
 
 
 
@@ -45,7 +46,7 @@ public class SecurityConfiguration {
     }
 
 
-    @Bean
+   /* @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
         UserDetails user = User.builder().username("nishant").password(passwordEncoder().encode("nishant")).roles("USER").build();
 
@@ -53,7 +54,7 @@ public class SecurityConfiguration {
         return new InMemoryUserDetailsManager(user);
 
 
-    }
+    }*/
 
 
 }
